@@ -1,5 +1,5 @@
-REGISTRY=""
-VERSION="0.1"
+REGISTRY=
+VERSION="0.2"
 
 all: build push
 
@@ -11,6 +11,9 @@ ifdef REGISTRY
 		docker tag md5checker:${VERSION} ${REGISTRY}/md5checker:${VERSION}
 		docker push ${REGISTRY}/md5checker:${VERSION}
 		docker push ${REGISTRY}/md5checker:latest
+endif
+ifndef REGISTRY
+	@echo "For push operations, define a target registry name (e.g. \"make push REGISTRY=MyAwesomeRegistry\" )"
 endif
 
 test_all: canary_test success_test success_keep_test err_test

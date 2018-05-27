@@ -36,14 +36,14 @@ fi
 
 DFN=/tmp/$(uuidgen)
 
-wget -q -O ${DFN} ${SFU}
+curl -s -o ${DFN} ${SFU}
 CSM=$(md5sum ${DFN} | cut -d' ' -f 1)
 if [ "${CSM}" == "${MD5}" ]; then
   echo "MD5 $DFN sum SUCCESS"
-  $(wget -q ${SUC} > /dev/null)
+  curl -s ${SUC} > /dev/null
 else
   echo "MD5 $DFN sum ERROR ($CSM not eq $MD5)"
-  wget -q ${ERR}  > /dev/null
+  curl -s ${ERR} > /dev/null
 fi
 
 if ! [ -z "${KEEP}" ]; then
